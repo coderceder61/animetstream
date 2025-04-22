@@ -215,21 +215,19 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
 
          
 
-	  <video src="" id="player" ref={videoRef} controls>
-	  response2.data.content.data.tracks.map(track=>{
-		  return (
-			<track
-        src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
+	<video src="" id="player" ref={videoRef} controls>
+  {response2.data.content.data.tracks.map((track, index) => (
+    <track
+      key={index}
+      src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
+      kind="subtitles"
+      srcLang="en"
+      label={track.label}
+      default={index === 0} // optionally set only the first track as default
+    />
+  ))}
+</video>
 
-        kind="subtitles"
-        srcLang="en"
-        label={track.label}
-        default
-      />  
-		  )
-	  })
-	  
-	</video>
          
           <div ref={spinnerRef} className="spinner-container">
             <div className="spinner"></div>

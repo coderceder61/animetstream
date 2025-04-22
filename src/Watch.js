@@ -227,6 +227,28 @@ useEffect(() => {
     const handleClick =()=>{
       setVisible(false)
     }
+const playerRef = useRef(null);
+
+useEffect(() => {
+  if (videoRef.current && tracks?.length > 0) {
+    // Destroy previous instance if needed
+    if (playerRef.current) {
+      playerRef.current.destroy();
+    }
+
+    // Re-initialize Plyr on video element
+    playerRef.current = new Plyr(videoRef.current, {
+      captions: { active: true, update: true, language: 'auto' },
+    });
+
+    // Optional: set subtitle to first available
+    const textTracks = videoRef.current.textTracks;
+    for (let i = 0; i < textTracks.length; i++) {
+      textTracks[i].mode = i === 0 ? 'showing' : 'disabled';
+    }
+  }
+}, [tracks]);
+
   return (
     <>
 

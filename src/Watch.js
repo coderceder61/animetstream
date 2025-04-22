@@ -53,7 +53,7 @@ let res
         Cookies.set('lastWatchedAnime', animeId);
   //const videoRef = useRef(null);
 const player = new Plyr('#player', {
-        captions: {active:true},
+        captions: {active:true, update: true},
     });
 
   const [animeid,setAnimeId] = useState(0)
@@ -219,7 +219,7 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
   <div className="containerr">
 
         
-<video id="player" src="" crossorigin playsinline ref={videoRef} controls>
+<video id="player" src="" crossOrigin="anonymous" playsinline ref={videoRef} controls>
   {tracks && tracks.map((track, index) => (
     <track
       key={index}

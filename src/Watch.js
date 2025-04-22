@@ -237,7 +237,7 @@ useEffect(() => {
 
          
 
-	 <video ref={videoRef} controls>
+	 <video id="player" src="" ref={videoRef} controls>
   {tracks && tracks.map((track, index) => (
     <track
       key={index}

@@ -242,10 +242,7 @@ useEffect(() => {
     });
 
     // Optional: set subtitle to first available
-    const textTracks = videoRef.current.textTracks;
-    for (let i = 0; i < textTracks.length; i++) {
-      textTracks[i].mode = i === 0 ? 'showing' : 'disabled';
-    }
+    //
   }
 }, [tracks]);
 

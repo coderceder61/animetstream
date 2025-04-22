@@ -232,22 +232,31 @@ useEffect(() => {
 const playerRef = useRef(null);
 useEffect(() => {
   if (videoRef.current && tracks?.length) {
-    // Destroy existing Plyr instance
+    // Destroy existing Plyr instance if it exists
     if (plyrRef.current) {
       plyrRef.current.destroy();
     }
 
-    // Load new tracks into video
+    // Reload video and track elements
     videoRef.current.load();
 
-    // Wait a bit to ensure <track> elements are parsed
+    // Wait for the video to be loaded and tracks parsed
     setTimeout(() => {
       plyrRef.current = new Plyr(videoRef.current, {
         captions: { active: true, update: true, language: 'auto' },
       });
+
+      // Set the first track as active by default
+      if (tracks && tracks.length > 0) {
+        const defaultTrack = videoRef.current.textTracks[0]; // Assuming the first track should be the default one
+        if (defaultTrack) {
+          defaultTrack.mode = 'showing'; // Show the default subtitle
+        }
+      }
     }, 100); // Small delay helps Plyr detect tracks
   }
-}, [tracks]);
+}, [tracks]);  // Only run when tracks change
+
 
 
 

@@ -14,27 +14,27 @@ const Watch = forwardRef((props, ref) => {
 
 const [tracks,setTracks]=useState(null)
 	useEffect(() => {
-    
+    const fetchTracks = async () => {
+     
+    };
 
-	const fetchEpisodeSubtitles = async (episodeId) => {
+    fetchTracks();
+  }, [episodeId]);
+const fetchEpisodeSubtitles = async (episodeId) => {
 	setSpinner(true)
-	//console.log(episodeId)	
-	try {
-        const response23 = await axios.post(
+	 try {
+        const response22 = await axios.post(
           "https://proxy-production-ddb5.up.railway.app/fetch-url",
           {
             url: `https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`,
           }
         );
-        const trackList = response23?.data?.content?.data?.tracks || null;
+        const trackList = response22?.data?.content?.data?.tracks || null;
         setTracks(trackList);
       } catch (error) {
         console.error("Failed to fetch tracks:", error);
       }
-    };
   };
-	
-const track = useRef(null);
 
 	const fetchEpisodeSources = async (episodeId) => {
 	setSpinner(true)
@@ -241,14 +241,14 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
 
 	 <video src="" id="player" ref={videoRef} controls>
   {
-    tracks!==null && tracks.map((track, index) => (
+    tracks!==null ? tracks.map((track, index) => (
       <track
         key={index}
         src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
         kind="subtitles"
         label={track.label}
       />
-    )) 
+    )) : <span>tracks is null</span>
   }
 </video>
 

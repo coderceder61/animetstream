@@ -13,7 +13,7 @@ const pageSize = 10; // Number of items per page
 const Watch = forwardRef((props, ref) => {
 const [tracks,setTracks]=useState([])
 const track = useRef(null);
-  const player = videojs('my-video');
+  //const player = videojs('my-video');
   const playerRef = useRef(null);
 
 	const fetchEpisodeSources = async (episodeId) => {

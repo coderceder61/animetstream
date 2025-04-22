@@ -139,11 +139,8 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
         console.log(response2);
 
         const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
-        //console.log("Video URL: ", videoUrl);
-const encodedURL = encodeURIComponent(response2.data.content.data.tracks[0].file);
-const proxyURL = `/api/subtitle?url=${encodedURL}`;
+        setTracks(response2.data.content.data.tracks)
 
-track.current.src = proxyURL
 
         if (Hls.isSupported()) {
           hls = new Hls();

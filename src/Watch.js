@@ -10,6 +10,8 @@ let response2 = null
 const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
+	  const [episodeId,setEpisodeId] = useState('')
+
 const [tracks,setTracks]=useState(null)
 	useEffect(() => {
     const fetchTracks = async () => {
@@ -91,7 +93,6 @@ const player = new Plyr('#player');
   const [startIndex,setStartIndex] = useState(0)
   const [endIndex,setEndIndex] = useState(0)
   const [currentItems,setcurrentItems] = useState([])
-  const [episodeId,setEpisodeId] = useState('')
   
   useEffect(()=>{
     if(isLoading){

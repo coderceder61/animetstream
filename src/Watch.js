@@ -220,7 +220,7 @@ useEffect(() => {
       setVisible(false)
     }
 const playerRef = useRef(null);
-useEffect(() => {
+{/*useEffect(() => {
     if (videoRef.current && tracks && tracks.length) {
       // Destroy existing Plyr instance if any
       if (plyrRef.current) {
@@ -238,7 +238,7 @@ useEffect(() => {
         videoRef.current.textTracks[0].mode = 'showing'; // Display first track by default
       }
     }
-  }, [tracks]);
+  }, [tracks]);*/}
 
 
 

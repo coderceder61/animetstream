@@ -10,7 +10,10 @@ let response2 = null
 const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
-
+const [tracks,setTracks]=useState(null)
+	useEffect(()=>{
+		setTracks(response2.data.content.data.tracks)
+	},[response2])
 const track = useRef(null);
 
 	const fetchEpisodeSources = async (episodeId) => {
@@ -219,7 +222,7 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
 
 	 <video src="" id="player" ref={videoRef} controls>
   {
-    response2!==null && response2.data.content.data.tracks.map((track, index) => (
+    tracks!==null && tracks.map((track, index) => (
       <track
         key={index}
         src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}

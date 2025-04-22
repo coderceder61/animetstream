@@ -38,7 +38,17 @@ console.log(response2);
       });	
 
 setTracks(response2.data.content.data.tracks)
+		for(let i=0;c=response2.data.content.data.tracks.length;i<c;i++){
+		playerRef.current.addRemoteTextTrack({
+        kind: 'subtitles',
+        src: response2.data.content.data.tracks[i].file,
+        srclang: 'en',
+        label: response2.data.content.data.tracks[i].label,
+        default: true,
+      }, false);	
+		}
 		
+    
       if (Hls.isSupported()) {
         let hls = new Hls();
         hls.loadSource(videoUrl);

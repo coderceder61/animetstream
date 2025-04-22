@@ -11,7 +11,11 @@ const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
-
+useEffect(() => {
+  if (tracks !== null) {
+    console.log("Updated tracks:", tracks);
+  }
+}, [tracks]);
 const [tracks,setTracks]=useState(null)
 
 const fetchEpisodeSubtitles = async (episodeId) => {

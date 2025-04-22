@@ -155,7 +155,10 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
         const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
         //console.log("Video URL: ", videoUrl);
 //
-
+const trackList = response2.data.content.data.tracks || null;
+		 
+        setTracks(trackList);
+	      
         if (Hls.isSupported()) {
           hls = new Hls();
           hlsRef.current = hls;

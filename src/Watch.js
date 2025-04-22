@@ -203,6 +203,7 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
 useEffect(() => {
   if (tracks !== null) {
     console.log("Updated tracks:", tracks);
+    videoRef.current.load(); // reload video and track element
   }
 }, [tracks]);
 

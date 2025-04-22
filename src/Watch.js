@@ -12,7 +12,7 @@ const pageSize = 10; // Number of items per page
 const Watch = forwardRef((props, ref) => {
 const [tracks,setTracks]=useState(null)
 	useEffect(()=>{
-		setTracks(response2!==null ? response2.data.content.data.tracks ; null)
+		setTracks(response2!==null ? response2.data.content.data.tracks : null)
 	},[response2])
 const track = useRef(null);
 

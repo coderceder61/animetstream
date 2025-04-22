@@ -129,17 +129,7 @@ let res
     </>;
   };
 
-useEffect(() => {
-  if (tracks) {
-    const video = videoRef.current;
-    if (video) {
-      // This forces <track> elements to be recognized
-      const currentTime = video.currentTime;
-      video.load();
-      video.currentTime = currentTime; // restore current time
-    }
-  }
-}, [tracks]);
+
 
   useEffect(() => {
     let hls
@@ -213,9 +203,7 @@ const trackList = response2.data.content.data.tracks || null;
       setcurrentItems(episodes.slice(startIndex,endIndex))
     }
   }, [totalEpisodes,animeId,currentPage,startIndex,endIndex]);
-  useEffect(() => {
-    //console.log(episodeId)
-  }, [episodeId]);
+  
 
 useEffect(() => {
   if (tracks !== null) {

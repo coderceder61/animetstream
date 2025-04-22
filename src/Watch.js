@@ -14,6 +14,7 @@ const Watch = forwardRef((props, ref) => {
 const [tracks,setTracks]=useState([])
 const track = useRef(null);
   const player = videojs('my-video');
+  const playerRef = useRef(null);
 
 	const fetchEpisodeSources = async (episodeId) => {
 	setSpinner(true)
@@ -24,7 +25,17 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
 
 console.log(response2);
       const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
-		
+	playerRef.current = videojs(videoRef.current, {
+        controls: true,
+        responsive: true,
+        fluid: true,
+        sources: [
+          {
+            src: videoUrl,
+            type: 'application/x-mpegURL',
+          },
+        ],
+      });	
 
 setTracks(response2.data.content.data.tracks)
 		
@@ -143,6 +154,19 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
         console.log(response2);
 
         const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
+
+	      playerRef.current = videojs(videoRef.current, {
+        controls: true,
+        responsive: true,
+        fluid: true,
+        sources: [
+          {
+            src: videoUrl,
+            type: 'application/x-mpegURL',
+          },
+        ],
+      });	
+	      
         setTracks(response2.data.content.data.tracks)
 
 
@@ -220,13 +244,12 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
   </div>}
   <div className="containerr">
 
-        
+  <div data-vjs-player>      
 <video 
     id="my-video"
     className="video-js vjs-default-skin"
     controls
     preload="auto"
-    data-setup='{}'
     src=""  
     ref={videoRef}
 >
@@ -240,6 +263,7 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
     />
   ))}
 </video>
+    </div>
 
           <div ref={spinnerRef} className="spinner-container">
             <div className="spinner"></div>

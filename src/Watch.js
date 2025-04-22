@@ -6,7 +6,7 @@ import './Watch.css';
 import Nav from './Nav'
 import Cookies from 'js-cookie';
 import Hls from 'hls.js';
-
+const response2 
 const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
@@ -18,7 +18,7 @@ const track = useRef(null);
 	//console.log(episodeId)	
 	try {
    
-const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url',{url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`});
+response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url',{url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`});
 
 console.log(response2);
       const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
@@ -137,7 +137,7 @@ const player = new Plyr('#player');
 
         // Fetch episode sources (post request)
         
-const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url', {url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeData[0].episodeId}&server=hd-1&category=sub`});
+response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url', {url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeData[0].episodeId}&server=hd-1&category=sub`});
         console.log(response2);
 
         const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
@@ -224,14 +224,19 @@ track.current.src = proxyURL
          
 
 	  <video src="" id="player" ref={videoRef} controls>
-	  <track
-        src=""
-ref={track}
+	  {
+		response2.data.content.data.tracks.map((track,index)=>{
+			return (
+			<track
+        src={track.file}
         kind="subtitles"
         srcLang="en"
-        label="English"
-        default
-      />
+        label={track.label}
+      />	
+			)
+		})  
+	  }
+	  
 	</video>
          
           <div ref={spinnerRef} className="spinner-container">

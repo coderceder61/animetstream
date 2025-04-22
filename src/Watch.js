@@ -24,7 +24,9 @@ const fetchEpisodeSubtitles = async (episodeId) => {
           }
         );
         const trackList = response22.data.content.data.tracks || null;
+		 
         setTracks(trackList);
+		 console.log(tracks,trackList)
       } catch (error) {
         console.error("Failed to fetch tracks:", error);
       }

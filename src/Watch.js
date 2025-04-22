@@ -52,9 +52,9 @@ let res
   let { animeId } = useParams();
         Cookies.set('lastWatchedAnime', animeId);
   //const videoRef = useRef(null);
-const player = new Plyr('#player', {
-        captions: {active:true, update: true},
-    });
+//const player = new Plyr('#player', {
+  //      captions: {active:true, update: true},
+    //});
 
   const [animeid,setAnimeId] = useState(0)
   const defaultOptions = {};

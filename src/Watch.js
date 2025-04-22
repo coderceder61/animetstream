@@ -259,7 +259,6 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
       src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
       kind="subtitles"
       label={track.label}
-      default={track.default}  // Set this conditionally if needed
     />
   ))}
 </video>

@@ -219,11 +219,12 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
   <div className="containerr">
 
         
-<video id="my-video"
-    className="video-js"
+<video 
+    id="videojs-player"
+    className="video-js vjs-default-skin"
     controls
     preload="auto"
-    data-setup="{}" 
+    data-setup='{}'>
     src=""  
     ref={videoRef}
 >

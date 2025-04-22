@@ -7,7 +7,7 @@ import Nav from './Nav'
 import Cookies from 'js-cookie';
 import Hls from 'hls.js';
 import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
+//import 'video.js/dist/video-js.css';
 const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {

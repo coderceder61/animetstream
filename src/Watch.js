@@ -14,18 +14,7 @@ const Watch = forwardRef((props, ref) => {
 
 const [tracks,setTracks]=useState(null)
 
-const fetchEpisodeSubtitles = async (episodeId) => {
-	setSpinner(true)
-	 try {
-        const response22 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url',{url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`});
-        const trackList = response22.data.content.data.tracks || null;
-		 
-        setTracks(trackList);
-		 console.log(tracks,trackList)
-      } catch (error) {
-        console.error("Failed to fetch tracks:", error);
-      }
-  };
+
 
 	const fetchEpisodeSources = async (episodeId) => {
 	setSpinner(true)
@@ -37,7 +26,10 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
 console.log(response2);
       const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
 
-
+const trackList = response2.data.content.data.tracks || null;
+		 
+        setTracks(trackList);
+        console.log(tracks,trackList)
 		
       if (Hls.isSupported()) {
         let hls = new Hls();
@@ -269,7 +261,7 @@ useEffect(() => {
     {
   currentItems.length > 0 ? (
     currentItems.map((episode) => (
-      <div key={episode.id} onClick={()=>{fetchEpisodeSources(episode.episodeId);fetchEpisodeSubtitles(episode.episodeId);setEpisodeId(episode.id);setEpisodeNumber(episode.number);}} style={{display:'flex',flexDirection:'column'}}>
+      <div key={episode.id} onClick={()=>{fetchEpisodeSources(episode.episodeId);setEpisodeId(episode.id);setEpisodeNumber(episode.number);}} style={{display:'flex',flexDirection:'column'}}>
       <img style={{cursor:'pointer',borderRadius:'10px',marginRight:'15px',width:'150px',aspectRatio:'16/9',objectFit:'cover'}} src={poster} alt={episode.title ? episode.title:""} /><span style={{alignSelf:'start',color:'white'}}>{episode.title ? (episode.title.length>19 ? episode.title.slice(0, 16)+'...':episode.title) : "Episode "+episode.number}</span>
 	</div>
     ))

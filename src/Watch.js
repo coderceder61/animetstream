@@ -14,23 +14,26 @@ const Watch = forwardRef((props, ref) => {
 
 const [tracks,setTracks]=useState(null)
 	useEffect(() => {
-    const fetchTracks = async () => {
-      try {
-        const response2 = await axios.post(
+    
+
+	const fetchEpisodeSubtitles = async (episodeId) => {
+	setSpinner(true)
+	//console.log(episodeId)	
+	try {
+        const response23 = await axios.post(
           "https://proxy-production-ddb5.up.railway.app/fetch-url",
           {
             url: `https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`,
           }
         );
-        const trackList = response2?.data?.content?.data?.tracks || null;
+        const trackList = response23?.data?.content?.data?.tracks || null;
         setTracks(trackList);
       } catch (error) {
         console.error("Failed to fetch tracks:", error);
       }
     };
-
-    fetchTracks();
-  }, [episodeId]);
+  };
+	
 const track = useRef(null);
 
 	const fetchEpisodeSources = async (episodeId) => {
@@ -238,14 +241,14 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
 
 	 <video src="" id="player" ref={videoRef} controls>
   {
-    tracks!==null ? tracks.map((track, index) => (
+    tracks!==null && tracks.map((track, index) => (
       <track
         key={index}
         src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
         kind="subtitles"
         label={track.label}
       />
-    )) : <span>tracks is null</span>
+    )) 
   }
 </video>
 
@@ -271,7 +274,7 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
     {
   currentItems.length > 0 ? (
     currentItems.map((episode) => (
-      <div key={episode.id} onClick={()=>{fetchEpisodeSources(episode.episodeId);setEpisodeId(episode.id);setEpisodeNumber(episode.number);}} style={{display:'flex',flexDirection:'column'}}>
+      <div key={episode.id} onClick={()=>{fetchEpisodeSources(episode.episodeId);fetchEpisodeSubtitles(episode.episodeId);setEpisodeId(episode.id);setEpisodeNumber(episode.number);}} style={{display:'flex',flexDirection:'column'}}>
       <img style={{cursor:'pointer',borderRadius:'10px',marginRight:'15px',width:'150px',aspectRatio:'16/9',objectFit:'cover'}} src={poster} alt={episode.title ? episode.title:""} /><span style={{alignSelf:'start',color:'white'}}>{episode.title ? (episode.title.length>19 ? episode.title.slice(0, 16)+'...':episode.title) : "Episode "+episode.number}</span>
 	</div>
     ))

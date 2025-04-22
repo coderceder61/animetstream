@@ -228,18 +228,18 @@ useEffect(() => {
          
 
 	 <video src="" id="player" ref={videoRef} controls>
-  {
-    tracks && tracks.map((track, index) => (
+  
+    
      <track
 	  key={index}
-	  src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
+	  src={`/api/subtitle?url=${encodeURIComponent(tracks[0].file)}`}
 	  kind="subtitles"
 	  label={track.label}
 	  srcLang="en" // replace with actual language code if you have one
 	  default={index === 0}
 	/>
-    )) 
-  }
+ 
+}
 </video>
 
          

@@ -233,7 +233,7 @@ useEffect(() => {
     }
 const playerRef = useRef(null);
 useEffect(() => {
-    if (videoRef.current && tracks.length) {
+    if (videoRef.current && tracks && tracks.length) {
       // Destroy existing Plyr instance if any
       if (plyrRef.current) {
         plyrRef.current.destroy();

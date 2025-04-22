@@ -125,7 +125,17 @@ const player = new Plyr('#player');
     </>;
   };
 
-
+useEffect(() => {
+  if (tracks) {
+    const video = videoRef.current;
+    if (video) {
+      // This forces <track> elements to be recognized
+      const currentTime = video.currentTime;
+      video.load();
+      video.currentTime = currentTime; // restore current time
+    }
+  }
+}, [tracks]);
 
   useEffect(() => {
     let hls
@@ -227,19 +237,17 @@ useEffect(() => {
 
          
 
-	 <video src="" id="player" ref={videoRef} controls>
-  
-    
-     <track
-	  key={index}
-	  src={`/api/subtitle?url=${encodeURIComponent(tracks[0].file)}`}
-	  kind="subtitles"
-	  label={track.label}
-	  srcLang="en" // replace with actual language code if you have one
-	  default={index === 0}
-	/>
- 
-
+	 <video ref={videoRef} controls>
+  {tracks && tracks.map((track, index) => (
+    <track
+      key={index}
+      src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
+      kind="subtitles"
+      label={track.label}
+      srcLang={track.lang || 'en'} // if you have lang info
+      default={index === 0}
+    />
+  ))}
 </video>
 
          

@@ -219,7 +219,14 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
   <div className="containerr">
 
         
-<video id="player" src="" crossOrigin="anonymous" playsinline ref={videoRef} controls>
+<video id="my-video"
+    className="video-js"
+    controls
+    preload="auto"
+    data-setup="{}" 
+    src=""  
+    ref={videoRef}
+>
   {tracks && tracks.map((track, index) => (
     <track
       key={index}

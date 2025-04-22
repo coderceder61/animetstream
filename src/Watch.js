@@ -20,10 +20,7 @@ const track = useRef(null);
    
 const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url',{url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`});
 
-console.log(response2);
-      const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
 
-		setTracks(response2.data.content.data.tracks)
 		
       if (Hls.isSupported()) {
         let hls = new Hls();
@@ -120,7 +117,23 @@ const player = new Plyr('#player');
     </>;
   };
 
+useEffect(() => {
+  const fetchTracks = async () => {
+    try {
+      const response = await axios.post(
+        'https://proxy-production-ddb5.up.railway.app/fetch-url',
+        {
+          url: `https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`
+        }
+      );
+      setTracks(response.data.content.data.tracks);
+    } catch (error) {
+      console.error("Error loading tracks:", error);
+    }
+  };
 
+  fetchTracks();
+}, [episodeId]);
 
   useEffect(() => {
     let hls
@@ -134,9 +147,7 @@ const player = new Plyr('#player');
 
         // Fetch episode sources (post request)
         
-const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url', {url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeData[0].episodeId}&server=hd-1&category=sub`});
-        console.log(response2);
-		setTracks(response2.data.content.data.tracks)
+
 	      
 
         const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;

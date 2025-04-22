@@ -229,29 +229,25 @@ useEffect(() => {
       setVisible(false)
     }
 const playerRef = useRef(null);
-
 useEffect(() => {
-  if (videoRef.current && tracks?.length > 0) {
-    // Destroy previous instance if any
+  if (videoRef.current && tracks?.length) {
+    // Destroy existing Plyr instance
     if (plyrRef.current) {
       plyrRef.current.destroy();
     }
 
-    // Re-init Plyr
-    plyrRef.current = new Plyr(videoRef.current, {
-      captions: { active: true, update: true, language: 'auto' },
-    });
-
-    // Force browser to reload <track> elements
+    // Load new tracks into video
     videoRef.current.load();
 
-    // Optional: Automatically show the first subtitle track
-    const textTracks = videoRef.current.textTracks;
-    for (let i = 0; i < textTracks.length; i++) {
-      textTracks[i].mode = i === 0 ? 'showing' : 'disabled';
-    }
+    // Wait a bit to ensure <track> elements are parsed
+    setTimeout(() => {
+      plyrRef.current = new Plyr(videoRef.current, {
+        captions: { active: true, update: true, language: 'auto' },
+      });
+    }, 100); // Small delay helps Plyr detect tracks
   }
 }, [tracks]);
+
 
 
   return (
@@ -267,14 +263,14 @@ useEffect(() => {
 
          
 
-	 <video src="" ref={videoRef} controls>
-  {tracks && tracks.map((track, index) => (
+	 <video ref={videoRef} controls>
+  {tracks?.map((track, index) => (
     <track
       key={index}
       src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
       kind="subtitles"
       label={track.label}
-      srcLang={track.lang || 'en'} // if you have lang info
+      srcLang={track.lang || 'en'}
       default={index === 0}
     />
   ))}

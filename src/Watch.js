@@ -232,14 +232,14 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
 
 	 <video src="" id="player" ref={videoRef} controls>
   {
-    tracks!==null ? tracks.map((track, index) => (
+    tracks && tracks.map((track, index) => (
       <track
         key={index}
         src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
         kind="subtitles"
         label={track.label}
       />
-    )) : <span>tracks is null</span>
+    )) 
   }
 </video>
 

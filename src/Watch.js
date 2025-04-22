@@ -22,11 +22,7 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
 
 console.log(response2);
       const videoUrl = "https://hianimeproxy-production.up.railway.app/m3u8-proxy?url=" + response2.data.content.data.sources[0].url;
-		const encodedURL = encodeURIComponent(response2.data.content.data.tracks[0].file);
-const proxyURL = `/api/subtitle?url=${encodedURL}`;
-
-track.current.src = proxyURL
-
+		
 		
       if (Hls.isSupported()) {
         let hls = new Hls();
@@ -224,14 +220,19 @@ track.current.src = proxyURL
          
 
 	  <video src="" id="player" ref={videoRef} controls>
-	  <track
-        src=""
-ref={track}
+	  response2.data.content.data.tracks.map(track=>{
+		  return (
+			<track
+        src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
+
         kind="subtitles"
         srcLang="en"
-        label="English"
+        label={track.label}
         default
-      />
+      />  
+		  )
+	  })
+	  
 	</video>
          
           <div ref={spinnerRef} className="spinner-container">

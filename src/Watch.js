@@ -263,14 +263,6 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
     src=""  
     ref={videoRef}
 >
-  {tracks && tracks.map((track, index) => (
-    <track
-      key={index}
-      src={`/api/subtitle?url=${encodeURIComponent(track.file)}`}
-      kind="subtitles"
-      label={track.label}
-    />
-  ))}
 </video>
     </div>
 

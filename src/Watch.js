@@ -11,11 +11,7 @@ const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
-useEffect(() => {
-  if (tracks !== null) {
-    console.log("Updated tracks:", tracks);
-  }
-}, [tracks]);
+
 const [tracks,setTracks]=useState(null)
 
 const fetchEpisodeSubtitles = async (episodeId) => {
@@ -212,7 +208,11 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
     //console.log(episodeId)
   }, [episodeId]);
 
-
+useEffect(() => {
+  if (tracks !== null) {
+    console.log("Updated tracks:", tracks);
+  }
+}, [tracks]);
 
 
 

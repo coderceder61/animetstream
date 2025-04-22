@@ -219,8 +219,7 @@ track.current.src = proxyURL
   </div>}
   <div className="containerr">
 
-         const encodedURL = ;
-const proxyURL = ;
+        
 <video src="" id="player" ref={videoRef} controls>
   {tracks && tracks.map((track, index) => (
     <track

@@ -222,7 +222,7 @@ response2 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch
     response2!==null && response2.data.content.data.tracks.map((track, index) => (
       <track
         key={index}
-        src={track.file}
+        src={`/api/subtitle?url=${encodeURIComponent(track)}`}
         kind="subtitles"
         srcLang="en"
         label={track.label}

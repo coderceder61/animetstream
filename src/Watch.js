@@ -252,16 +252,7 @@ useEffect(() => {
     }
   }, [tracks]);
 
-const switchSubtitleLanguage = (index) => {
-    const track = videoRef.current.textTracks[index];
-    if (track) {
-      // Disable all tracks
-      Array.from(videoRef.current.textTracks).forEach(t => t.mode = 'disabled');
-      // Enable the selected track
-      track.mode = 'showing';
-      setSelectedTrack(index);
-    }
-  };
+
 
 
   return (
@@ -290,14 +281,7 @@ const switchSubtitleLanguage = (index) => {
   ))}
 </video>
 
-	  <div>
-        <h4>Choose Subtitle Language</h4>
-        {tracks.map((track, index) => (
-          <button key={index} onClick={() => switchSubtitleLanguage(index)}>
-            {track.label}
-          </button>
-        ))}
-      </div>
+	 
 
          
           <div ref={spinnerRef} className="spinner-container">

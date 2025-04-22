@@ -11,6 +11,7 @@ const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
+const videoRef = useRef(null);
 const plyrRef = useRef(null);
 
 const [tracks,setTracks]=useState(null)
@@ -63,7 +64,7 @@ let res
   const [animeid,setAnimeId] = useState(0)
   const defaultOptions = {};
   const [isLoading,setSpinner] = useState(true)
-  const videoRef = useRef(null);
+  
   const spinnerRef = useRef(null)
   const [title,setTitle] = useState('')
   const [poster,setPoster] = useState('')

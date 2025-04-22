@@ -11,7 +11,7 @@ const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
-	  const [selectedTrack, setSelectedTrack] = useState(null); // To store the currently selected track index
+	  const [selectedTrack, setSelectedTrack] = useState(0); // To store the currently selected track index
 
 const videoRef = useRef(null);
 const plyrRef = useRef(null);

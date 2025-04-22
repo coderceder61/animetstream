@@ -11,6 +11,7 @@ const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
+const plyrRef = useRef(null);
 
 const [tracks,setTracks]=useState(null)
 
@@ -231,20 +232,27 @@ const playerRef = useRef(null);
 
 useEffect(() => {
   if (videoRef.current && tracks?.length > 0) {
-    // Destroy previous instance if needed
-    if (playerRef.current) {
-      playerRef.current.destroy();
+    // Destroy previous instance if any
+    if (plyrRef.current) {
+      plyrRef.current.destroy();
     }
 
-    // Re-initialize Plyr on video element
-    playerRef.current = new Plyr(videoRef.current, {
+    // Re-init Plyr
+    plyrRef.current = new Plyr(videoRef.current, {
       captions: { active: true, update: true, language: 'auto' },
     });
 
-    // Optional: set subtitle to first available
-    //
+    // Force browser to reload <track> elements
+    videoRef.current.load();
+
+    // Optional: Automatically show the first subtitle track
+    const textTracks = videoRef.current.textTracks;
+    for (let i = 0; i < textTracks.length; i++) {
+      textTracks[i].mode = i === 0 ? 'showing' : 'disabled';
+    }
   }
 }, [tracks]);
+
 
   return (
     <>

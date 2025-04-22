@@ -13,13 +13,7 @@ const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
 
 const [tracks,setTracks]=useState(null)
-	useEffect(() => {
-    const fetchTracks = async () => {
-     
-    };
 
-    fetchTracks();
-  }, [episodeId]);
 const fetchEpisodeSubtitles = async (episodeId) => {
 	setSpinner(true)
 	 try {
@@ -29,7 +23,7 @@ const fetchEpisodeSubtitles = async (episodeId) => {
             url: `https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`,
           }
         );
-        const trackList = response22?.data?.content?.data?.tracks || null;
+        const trackList = response22.data.content.data.tracks || null;
         setTracks(trackList);
       } catch (error) {
         console.error("Failed to fetch tracks:", error);

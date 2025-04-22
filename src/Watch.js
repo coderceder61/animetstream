@@ -17,12 +17,7 @@ const [tracks,setTracks]=useState(null)
 const fetchEpisodeSubtitles = async (episodeId) => {
 	setSpinner(true)
 	 try {
-        const response22 = await axios.post(
-          "https://proxy-production-ddb5.up.railway.app/fetch-url",
-          {
-            url: `https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`,
-          }
-        );
+        const response22 = await axios.post('https://proxy-production-ddb5.up.railway.app/fetch-url',{url:`https://anime-alpha-indol.vercel.app/api/v2/hianime/episode/sources?animeEpisodeId=${episodeId}&server=hd-1&category=sub`});
         const trackList = response22.data.content.data.tracks || null;
 		 
         setTracks(trackList);

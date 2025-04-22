@@ -12,6 +12,7 @@ const pageSize = 10; // Number of items per page
 const Watch = forwardRef((props, ref) => {
 const [tracks,setTracks]=useState([])
 const track = useRef(null);
+  const player = videojs('my-video');
 
 	const fetchEpisodeSources = async (episodeId) => {
 	setSpinner(true)
@@ -220,11 +221,11 @@ const response2 = await axios.post('https://proxy-production-ddb5.up.railway.app
 
         
 <video 
-    id="videojs-player"
+    id="my-video"
     className="video-js vjs-default-skin"
     controls
     preload="auto"
-    data-setup='{}'>
+    data-setup='{}'
     src=""  
     ref={videoRef}
 >

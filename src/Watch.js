@@ -223,21 +223,20 @@ track.current.src = proxyURL
 
          
 
-	  <video src="" id="player" ref={videoRef} controls>
-	  {
-		response2.data.content.data.tracks.map((track,index)=>{
-			return (
-			<track
+	 <video src="" id="player" ref={videoRef} controls>
+  {
+    response2.data.content.data.tracks.map((track, index) => (
+      <track
+        key={index}
         src={track.file}
         kind="subtitles"
         srcLang="en"
         label={track.label}
-      />	
-			)
-		})  
-	  }
-	  
-	</video>
+      />
+    ))
+  }
+</video>
+
          
           <div ref={spinnerRef} className="spinner-container">
             <div className="spinner"></div>

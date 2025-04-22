@@ -11,6 +11,8 @@ const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
 	  const [episodeId,setEpisodeId] = useState('')
+	  const [selectedTrack, setSelectedTrack] = useState(null); // To store the currently selected track index
+
 const videoRef = useRef(null);
 const plyrRef = useRef(null);
 
@@ -231,33 +233,35 @@ useEffect(() => {
     }
 const playerRef = useRef(null);
 useEffect(() => {
-  if (videoRef.current && tracks?.length) {
-    // Destroy existing Plyr instance if it exists
-    if (plyrRef.current) {
-      plyrRef.current.destroy();
-    }
+    if (videoRef.current && tracks.length) {
+      // Destroy existing Plyr instance if any
+      if (plyrRef.current) {
+        plyrRef.current.destroy();
+      }
 
-    // Reload video and track elements
-    videoRef.current.load();
-
-    // Wait for the video to be loaded and tracks parsed
-    setTimeout(() => {
+      // Initialize Plyr
       plyrRef.current = new Plyr(videoRef.current, {
         captions: { active: true, update: true, language: 'auto' },
       });
 
-      // Set the first track as active by default
-      if (tracks && tracks.length > 0) {
-        const defaultTrack = videoRef.current.textTracks[0]; // Assuming the first track should be the default one
-        if (defaultTrack) {
-          defaultTrack.mode = 'showing'; // Show the default subtitle
-        }
+      // Automatically select the first subtitle track
+      if (tracks.length > 0) {
+        setSelectedTrack(0);
+        videoRef.current.textTracks[0].mode = 'showing'; // Display first track by default
       }
-    }, 100); // Small delay helps Plyr detect tracks
-  }
-}, [tracks]);  // Only run when tracks change
+    }
+  }, [tracks]);
 
-
+const switchSubtitleLanguage = (index) => {
+    const track = videoRef.current.textTracks[index];
+    if (track) {
+      // Disable all tracks
+      Array.from(videoRef.current.textTracks).forEach(t => t.mode = 'disabled');
+      // Enable the selected track
+      track.mode = 'showing';
+      setSelectedTrack(index);
+    }
+  };
 
 
   return (
@@ -281,10 +285,19 @@ useEffect(() => {
       kind="subtitles"
       label={track.label}
       srcLang={track.lang || 'en'}
-      default={index === 0}
+      default={index === selectedTrack}
     />
   ))}
 </video>
+
+	  <div>
+        <h4>Choose Subtitle Language</h4>
+        {tracks.map((track, index) => (
+          <button key={index} onClick={() => switchSubtitleLanguage(index)}>
+            {track.label}
+          </button>
+        ))}
+      </div>
 
          
           <div ref={spinnerRef} className="spinner-container">

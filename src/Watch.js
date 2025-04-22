@@ -6,7 +6,7 @@ import './Watch.css';
 import Nav from './Nav'
 import Cookies from 'js-cookie';
 import Hls from 'hls.js';
-const response2 
+let response2 
 const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {

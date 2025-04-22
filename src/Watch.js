@@ -239,7 +239,7 @@ useEffect(() => {
 	  default={index === 0}
 	/>
  
-}
+
 </video>
 
          

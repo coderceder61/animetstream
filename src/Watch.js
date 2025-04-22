@@ -6,7 +6,7 @@ import './Watch.css';
 import Nav from './Nav'
 import Cookies from 'js-cookie';
 import Hls from 'hls.js';
-let response2 
+let response2 = null
 const pageSize = 10; // Number of items per page
 
 const Watch = forwardRef((props, ref) => {
@@ -225,7 +225,7 @@ track.current.src = proxyURL
 
 	 <video src="" id="player" ref={videoRef} controls>
   {
-    response2.data.content.data.tracks.map((track, index) => (
+    response2!==null && response2.data.content.data.tracks.map((track, index) => (
       <track
         key={index}
         src={track.file}
